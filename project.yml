@@ -1,0 +1,70 @@
+name: PassSkin
+options:
+  bundleIdPrefix: com.yourstore
+  deploymentTarget:
+    iOS: "16.0"
+  developmentLanguage: ar
+
+packages:
+  ZIPFoundation:
+    url: https://github.com/weichsel/ZIPFoundation.git
+    from: "0.9.19"
+  OpenSSL-Package:
+    url: https://github.com/krzyzanowskim/OpenSSL-Package.git
+    from: "3.3.1000"
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+
+targets:
+  PassSkin:
+    type: application
+    platform: iOS
+    sources:
+      - path: PassSkin
+        excludes:
+          - "Resources/**"
+      - path: PassSkin/Resources
+        buildPhase: resources
+    dependencies:
+      - package: ZIPFoundation
+      - package: OpenSSL-Package
+        product: OpenSSL
+    info:
+      path: Support/Info.plist
+      properties:
+        CFBundleDisplayName: "بطاقتي"
+        CFBundleDevelopmentRegion: ar
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        LSSupportsOpeningDocumentsInPlace: false
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: Wallet Pass
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes:
+              - com.apple.pkpass
+              - com.apple.pkpasses
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.yourstore.passskin
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: NO
+        CODE_SIGN_STYLE: Automatic
+
+schemes:
+  PassSkin:
+    build:
+      targets:
+        PassSkin: all
+    run:
+      config: Debug
+    archive:
+      config: Release

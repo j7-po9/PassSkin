@@ -1,0 +1,3 @@
+حط هنا:
+- pass.p12            (شهادة Pass Type ID مع المفتاح)   أو   passcert.pem + passkey.pem
+- AppleWWDRCAG4.cer   (من https://www.apple.com/certificateauthority/)
